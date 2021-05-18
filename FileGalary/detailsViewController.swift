@@ -33,11 +33,12 @@ class detailsViewController: UIViewController {
     
     @objc func share() {
         guard let i = image.image?.jpegData(compressionQuality: 0.8)else {
-            
             return
         }
-            let imageShare = [ i ]
-            let activityViewController = UIActivityViewController(activityItems: imageShare , applicationActivities: nil)
+        let text = selectedImage
+
+        let Share = [ i , text] as [Any]
+            let activityViewController = UIActivityViewController(activityItems: Share , applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
     }
