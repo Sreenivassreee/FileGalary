@@ -23,11 +23,23 @@ class detailsViewController: UIViewController {
         super.viewDidLoad()
         title=selectedImage
         navigationItem.largeTitleDisplayMode = .never
-        print(selectedImage)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector (share))
+
         if let s = selectedImage{
             image.image = UIImage(named: s)
         }
         
+    }
+    
+    @objc func share() {
+        guard let i = image.image?.jpegData(compressionQuality: 0.8)else {
+            
+            return
+        }
+            let imageShare = [ i ]
+            let activityViewController = UIActivityViewController(activityItems: imageShare , applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
     }
   
 }
